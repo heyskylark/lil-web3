@@ -16,6 +16,8 @@ contract LilENS {
     /// EVENTS ///
 
     /// @notice Event that is emitted when a name is transfered from one owner to another
+    /// @param name The ENS that was transfered
+    /// @param owner The address the ENS was transfered to
     event Transfer(string name, address owner);
 
     /// @notice Stores the hashed registered names and their addresses

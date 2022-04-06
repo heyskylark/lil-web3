@@ -12,10 +12,18 @@ I spent some time reading through [EIP-137](https://eips.ethereum.org/EIPS/eip-1
 
 For the lil project the main goal is to distil the purpose ENS into its most condensed simplest form.
 
-[Contract Source](./src/LilENS.sol) • [Contract Testing](./src/test/LilENS.sol)
+[Contract Source](./src/LilENS.sol) • [Contract Testing](./src/test/LilENS.t.sol)
 
 # lil opensea
->\<under-construction>
+> A lil marketplace without the fees
+
+lil Opensea is a simple contract that holds listings and consists of three functions create a listing `list(ERC721 tokenContract, uint256 tokenId, uint256 askPrice, uint256 expiryDate)`, pruchase a listing `buyListing(uint256 listingId)`, and cancel a listing `cancelListing(uint256)`.
+
+This contract does not include the ability to bid, it only acts a simple marketplace to put ERC721 tokens up for sale and be able to purchase said listings outright.
+
+I did want to also add the ability to have listings expires. As of right now, after expiration the listings stay on the contract indefinitely but are then invalid. If there is a better way, feedback is always appreciated!
+
+[Contract Source](./src/LilOpensea.sol) • [Contract Testing](./src/test/LilOpensea.t.sol)
 
 # lil fractional
 >\<under-construction>
