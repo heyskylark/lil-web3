@@ -2,7 +2,7 @@
 pragma solidity 0.8.13;
 
 /// @title lil ens
-/// @author Brandon Feist
+/// @author Skylark
 /// @notice An all in one compact registry and resolver.
 contract LilENS {
     /// ERRORS ///

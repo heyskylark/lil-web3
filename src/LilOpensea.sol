@@ -5,7 +5,7 @@ import 'solmate/tokens/ERC721.sol';
 import 'solmate/utils/SafeTransferLib.sol';
 
 /// @title lil opensea
-/// @author Brandon Feist
+/// @author Skylark
 /// @notice A simple and condensed version of OpenSea
 contract LilOpensea {
     /// ERRORS ///

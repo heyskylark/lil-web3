@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 pragma solidity 0.8.13;
 
-import './Hevm.sol';
 import '../LilOpenSea.sol';
 import 'ds-test/test.sol';
 import 'solmate/tokens/ERC721.sol';
+import { Vm } from 'forge-std/Vm.sol';
 
 contract User {
     receive() external payable {}
@@ -26,7 +26,7 @@ contract TestNFT is ERC721('Test ERC721', 'TEST') {
 
 contract LilOpenseaTest is DSTest {
     uint256 nftId;
-    Hevm internal hevm;
+    Vm internal hevm;
     User internal user;
     LilOpensea internal lilOpensea;
     TestNFT internal nft;
@@ -40,7 +40,7 @@ contract LilOpenseaTest is DSTest {
         user = new User();
         lilOpensea = new LilOpensea();
         nft = new TestNFT();
-        hevm = Hevm(HEVM_ADDRESS);
+        hevm = Vm(HEVM_ADDRESS);
         testDate = 1649505600;
 
         // Give marketplace access to all tokens for this
