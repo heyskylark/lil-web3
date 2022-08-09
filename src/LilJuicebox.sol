@@ -18,16 +18,19 @@ contract JuiceboxToken is ERC20 {
         owner = msg.sender;
     }
 
+    /// @notice A modifier that checks if the caller owns this contract
     modifier isOwner() {
         if (msg.sender != owner) revert Unauthorized();
 
         _;
     }
 
+    /// @notice A wrapper mint function that can only be called by the LilJuicebox contract
     function mint(address to, uint256 amount) public payable isOwner() {
         _mint(to, amount);
     }
 
+    /// @notice A wrapper burn function that can only be called by the LilJuicebox contract
     function burn(address from, uint256 amount) public payable isOwner() {
         _burn(from, amount);
     }
@@ -42,21 +45,27 @@ contract LilJuicebox {
     /// @notice Thrown when the caller is not aloud to call a function
     error Unauthorized();
 
+    /// @notice Thrown when contributions are closed
     error ContributionsClosed();
 
+    /// @notice Thrown when refudning is closed
     error RefundingClosed();
 
-    error ExceededContributionAmount();
-
     /// EVENTS ///
+
+    /// @notice Emited when the state is updated
     event StateUpdated(State state);
 
+    /// @notice Emited when a user contirbutes
     event Contributed(address indexed from, uint256 amount);
 
+    /// @notice Emited when a user refunds their contribution
     event Refunded(address indexed to, uint256 amount);
 
+    /// @notice Emited when the owner withdraws contributed funds
     event Withdraw(uint256 amount);
 
+    /// @notice Emited when the owner renounces ownership
     event Renounced();
 
     /// @notice Enum used to track the contribution state of the contract
@@ -84,12 +93,14 @@ contract LilJuicebox {
         juiceboxToken = new JuiceboxToken(name, symbol);
     }
 
+    /// @notice A modifier that checks if the caller owns this contract
     modifier isOwner() {
         if (msg.sender != owner) revert Unauthorized();
 
         _;
     }
 
+    /// @notice Used to contribute ETH for Juicebox tokens
     function contribute() public payable {
         if (getState != State.OPEN) revert ContributionsClosed();
 
@@ -99,6 +110,8 @@ contract LilJuicebox {
         juiceboxToken.mint(msg.sender, tokenAmount);
     }
 
+    /// @notice Used to get contribution refund when contributions are opened
+    /// @param amount the amount to refund
     function refund(uint256 amount) public {
         if (getState != State.REFUNDING) revert RefundingClosed();
 
@@ -110,6 +123,7 @@ contract LilJuicebox {
         SafeTransferLib.safeTransferETH(msg.sender, refundETHAmount);
     }
 
+    /// @notice The owner withdraws all funds when called
     function withdraw() public isOwner() {
         uint256 balance = address(this).balance;
 
@@ -117,16 +131,20 @@ contract LilJuicebox {
         SafeTransferLib.safeTransferETH(msg.sender, balance);
     }
 
+    /// @notice Changes the contract state between (OPEN, CLOSED, and REFUNDING)
+    /// @param state The State to change this contract to
     function updateState(State state) public isOwner() {
         emit StateUpdated(state);
         getState = state;
     }
 
+    /// @notice Allows the owner to renounce ownership over the contract, making any changes to the contract after impossible
     function renounce() public isOwner() {
         emit Renounced();
         owner = address(0);
     }
 
+    /// @notice A helper function that converts the amount of Juicebox tokens given to the equivalent ETH
     function _tokenToEth(uint256 amount) private pure returns (uint256) {
         uint256 ethAmount;
 
@@ -137,6 +155,7 @@ contract LilJuicebox {
         return ethAmount;
     }
 
+    /// @notice A helper function that converts ETH to the equivalent Juicebox tokens
     function _ethToToken(uint256 amount) private pure returns (uint256) {
         uint256 tokenAmount;
 

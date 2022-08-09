@@ -40,5 +40,8 @@ I did want to also add the ability to have listings expires. As of right now, af
 # lil superfluid
 >\<under-construction>
 
+# lil sudoswap
+>\<under-construction>
+
 # License
 This project is open-sourced software licensed under the GNU Affero GPL v3.0 license. See the License file for more information.
