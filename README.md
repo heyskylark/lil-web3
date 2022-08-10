@@ -26,13 +26,29 @@ I did want to also add the ability to have listings expires. As of right now, af
 [Contract Source](./src/LilOpensea.sol) • [Contract Testing](./src/test/LilOpensea.t.sol)
 
 # lil fractional
->\<under-construction>
+> Fractionalization but smol
+
+A distilled version of NFT fractionalization. This contract allows users to fractionalize their NFT and keeps track of each fractionalized NFT in vaults. This contract consists of two main methods `split(ERC721 nftContract, uint256 tokenId, uint256 supply, string name, string symbol)` and `join(uint256 id)` (which requires all fractionalized ERC20 tokens to trigger).
+
+[Contract Source](./src/LilFractional.sol) • [Contract Testing](./src/test/LilFractional.t.sol)
 
 # lil juicebox
->\<under-construction>
+> You Lil Juicebox funding contract
+
+Juicebox in its most pure form. This contract allows users to contribute to a fund with `contribute() payable` (in return they will recieve special Juicebox ERC20 tokens), ask for an ETH refund with `refund(uint256 amount)`, allow the owner to withdraw ETH with `withdraw()`, renounce ownership with `renounce()`, and update the Juicebox funding state with `updateState(State state)`.
+
+This contract could be extended further to keep track of different funds that are going on, instead of having one fund for one contract. As well as modifying the type and amount of ERC20 tokens that are given after contribution.
+
+[Contract Source](./src/LilJuicebox.sol) • [Contract Testing](./src/test/LilJuicebox.t.sol)
 
 # lil flashloan
->\<under-construction>
+> Lil Flashloans for Lil Arbitrage
+
+lil Flashloan is a very simple flash loan implementation based off the [EIP-3156 Standard](https://eips.ethereum.org/EIPS/eip-3156). This contract allows the owner to set fees `setFee(ERC20 token, uint256 fee)`, withdraw funds with `withdraw(ERC20 token, uint256 amount)`, and allow any borrower to deploy their own contract under the `IERC3156FlashBorrower` interface to be used as a callback in the function `flashLoan(IERC3156FlashBorrower receiver, ERC20 token, uint256 amount, bytes calldata data)`.
+
+The borrower contracts a VERY simple, mainly used to display what happens when a contract returns borrowed funds after use and when a contract tries to keep the transfered funds.
+
+[Contract Source](./src/LilFlashloan.sol) • [Contract Testing](./src/test/LilFlashloan.t.sol)
 
 # lil gonsis
 >\<under-construction>
